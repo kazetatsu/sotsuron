@@ -34,13 +34,13 @@ $ M_i $に対応する利用者の位置分布を$ h_i:X \rightarrow [0,\infty] 
 
 以上を用いて$ M_i $においてなくしものが発生する確率$ p_i = \mathrm{P}(\tau < \infty , m_{\tau} = M_i) $は
 \begin{equation} \label{eq:p}
-p = L(I-K)^{-1}s
+\V{p} = \V{L}(\V{I}-\V{K})^{-1}\V{s}
 \end{equation}
 となる．ただし
 \begin{align*}
 \arraycolsep1pt
-p &= (p_1,p_2,\cdots,p_n)^\mathrm{T} \\
-L &=
+\V{p} &= (p_1,p_2,\cdots,p_n)^\mathrm{T} \\
+\V{L} &=
 \begin{pmatrix}
     0 & \theta_1 a_{2 1} & \cdots & \theta_1 a_{n 1} \\
     \theta_2 a_{1 2} & 0 & \cdots & \theta_2 a_{n 2} \\
@@ -48,8 +48,8 @@ L &=
     \theta_n a_{1 n} & \theta_n a_{2 n} & \cdots & 0 \\
 \end{pmatrix}
 \\
-I &= n行n列の単位行列 \\
-K &=
+\V{I} &= n行n列の単位行列 \\
+\V{K} &=
 \begin{pmatrix}
     a_{1 1} & (1 - \theta_1) a_{2 1} & \cdots & (1 - \theta_1) a_{n 1} \\
     (1 - \theta_2) a_{1 2} & a_{2 2} & \cdots & (1 - \theta_2) a_{n 2} \\
@@ -57,7 +57,7 @@ K &=
     (1 - \theta_n) a_{1 n} & (1 - \theta_n) a_{2 n} & \cdots & a_{n n} \\
 \end{pmatrix}
 \\
-s &= (s_1,s_2,\cdots,s_n)^\mathrm{T}
+\V{s} &= (s_1,s_2,\cdots,s_n)^\mathrm{T}
 \end{align*}
 とおいた．
 
