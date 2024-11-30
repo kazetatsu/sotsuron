@@ -1,5 +1,46 @@
 \chapter{上田の研究をもっと引用してもらう手法の開発}\label{chap:method}
 
+捜索範囲を$ X \subseteq \mathbb{R}^d \  (d=2または3)$とおく．
+マルコフ連鎖の状態数すなわち動作の数を$ n $，各動作を$ M_i (i=1,2,\cdots ,n)$，$ M_i $から$ M_j $への遷移確率を$ a_{i j} $とおく．
+またマルコフ連鎖はエルゴード的であるとする．\cite{funaki}
+% \footnote{エルゴード的であるとはマルコフ連鎖を有向グラフとみなしたとき，任意の$ i $，$ j $に対し$ S_i $から$ S_j $への経路が存在し，かつ任意の$ i $に対し$ S_i $から$ S_i $への閉路の長さの最大公約数が1であることである}
+初期動作が$ M_i $である確率を$ s_i $とおく．
+$ t(t=0,1,2,\cdots) $回目の遷移の後の動作を$ m_t $とおく．ただし$ m_0 $は初期動作とする．
+なくしものが何回目の遷移で発生したか，すなわち$ t - 1 $回目の遷移までなくしものが発生せず$ t $回目でなくしものが発生するような$ t $を$ \tau $とおく．
+$ M_i $から$ M_j $へ遷移する際になくしものが発生する確率，すなわち$ \mathrm{P}(\tau = t | \tau \ge t , m_t = M_j , m_{t - 1} = M_i) $を$ M_i $から$ M_j $への遷移失敗確率とよぶ．
+この確立は$ i = j $のとき$ 0 $，$ i \ne j $のとき$ M_j $にのみ依存した$ 0 $より真に大きい値をとると仮定しその値を$ \theta_j $とおく．
+$ M_i $に対応する利用者の位置分布を$ h_i:X \rightarrow [0,\infty] $とし$ \int_X h_i = 1 $を満たすとする．積分条件は加重和をとる際に余分な重みが加わらないようにするためである．
+
+以上を用いて$ M_i $においてなくしものが発生する確率$ p_i = \mathrm{P}(\tau < \infty , m_{\tau} = M_i) $は
+\begin{equation} \label{eq:p}
+p = L(I-K)^{-1}s
+\end{equation}
+となる．ただし
+\begin{align*}
+\arraycolsep1pt
+p &= (p_1,p_2,\cdots,p_n)^\mathrm{T} \\
+L &=
+\begin{pmatrix}
+    0 & \theta_1 a_{2 1} & \cdots & \theta_1 a_{n 1} \\
+    \theta_2 a_{1 2} & 0 & \cdots & \theta_2 a_{n 2} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \theta_n a_{1 n} & \theta_n a_{2 n} & \cdots & 0 \\
+\end{pmatrix}
+\\
+I &= n行n列の単位行列 \\
+K &=
+\begin{pmatrix}
+    a_{1 1} & (1 - \theta_1) a_{2 1} & \cdots & (1 - \theta_1) a_{n 1} \\
+    (1 - \theta_2) a_{1 2} & a_{2 2} & \cdots & (1 - \theta_2) a_{n 2} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    (1 - \theta_n) a_{1 n} & (1 - \theta_n) a_{2 n} & \cdots & a_{n n} \\
+\end{pmatrix}
+\\
+s &= (s_1,s_2,\cdots,s_n)^\mathrm{T}
+\end{align*}
+とおいた．
+
+
 ここに書いてある方法を使えば, 秒速で秒速で1億円稼ぐ男になれます. なれません. 
 
 
