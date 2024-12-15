@@ -21,24 +21,32 @@
 利用者位置分布とマルコフ連鎖を通じてなくしものが発生していない状況下での利用者の行動を反映
 
 \section{定式化}
-捜索範囲を$ X \subseteq \mathbb{R}^d \  (d=2または3)$とおく．
-マルコフ連鎖の状態数すなわち動作の数を$ n $，各動作を$ M_i (i=1,2,\cdots ,n)$，$ M_i $から$ M_j $への遷移確率を$ a_{i j} $とおく．
-またマルコフ連鎖はエルゴード的であるとする．\cite{funaki}
-% \footnote{エルゴード的であるとはマルコフ連鎖を有向グラフとみなしたとき，任意の$ i $，$ j $に対し$ S_i $から$ S_j $への経路が存在し，かつ任意の$ i $に対し$ S_i $から$ S_i $への閉路の長さの最大公約数が1であることである}
-初期動作が$ M_i $である確率を$ s_i $とおく．
-$ t(t=0,1,2,\cdots) $回目の遷移の後の動作を$ m_t $とおく．ただし$ m_0 $は初期動作とする．
-なくしものが何回目の遷移で発生したか，すなわち$ t - 1 $回目の遷移までなくしものが発生せず$ t $回目でなくしものが発生するような$ t $を$ \tau $とおく．
-$ M_i $から$ M_j $へ遷移する際になくしものが発生する確率，すなわち$ \mathrm{P}(\tau = t | \tau \ge t , m_t = M_j , m_{t - 1} = M_i) $を$ M_i $から$ M_j $への遷移失敗確率とよぶ．
-この確率は$ i = j $のとき$ 0 $，$ i \ne j $のとき$ M_j $にのみ依存した$ 0 $より真に大きい値をとると仮定しその値を$ \theta_j $とおく．
-$ M_i $に対応する利用者の位置分布を$ h_i:X \rightarrow [0,\infty] $とし$ \int_X h_i = 1 $を満たすとする．積分条件は加重和をとる際に余分な重みが加わらないようにするためである．
+捜索範囲を$ X \subseteq \mathbb{R}^d \  (d=2,3)$とおく．
+マルコフ連鎖の状態数すなわち動作の数を$ n $, 各動作を$ m_i\ (i=1,2,\cdots ,n)$, 
+$ t \in \{0,1,2,\cdots\} $回目の遷移の後の動作を$ M_t $とおく．ただし$ M_0 $は初期動作とする. 
+$ m_i $から$ m_j $に遷移する確率$ \mathrm{P}(M_t = m_j | M_{t-1} = m_i) $を$ a_{i j} $, 
+初期動作が$ m_i $である確率$ \mathrm{P}(M_0 = m_i) $を$ s_i $とおく. 
+ただしマルコフ連鎖はエルゴード的であると仮定する. \cite{funaki}
+また$ R_t\ (t=1,2,3,\cdots) $を$ 0 $または$ 1 $をとる確率変数とする. 
+$ \mathrm{P}(R_t = 0 | M_t = m_j , M_{t - 1} = m_i) $を$ m_i $から$ m_j $への遷移失敗確率と呼ぶ. 
+この確率は$ i = j $のとき$ 0 $, $ i \ne j $のとき$ M_j $にのみ依存した$ 0 $より真に大きい値をとると仮定しその値を$ \theta_j $とおく. 
+\begin{equation}
+    \mathrm{P}(R_t = 0 | M_t = m_j , M_{t - 1} = m_i) =
+    \begin{cases}
+        0        & \text{if $i = j$}\\
+        \theta_j & \text{if $i \ne j$}
+    \end{cases}
+\end{equation}
+はじめて$ R_t = 0 $となるときになくしものが発生するとし, そのような$ t $を$ \tau $とおく. 
+すなわち$ \tau $は任意の$ t^{\prime} \in \{1,2,3,\cdots,t-1\} $に対し$ R_{t^{\prime}} = 0 $かつ$ R_t = 1 $を満たす$ t $である. 
+$ \mathrm{P}(\tau < \infty , M_{\tau} = m_i) $を$ p_i $とおき$ m_i $におけるなくしもの発生確率と呼ぶ. 
 
-以上を用いて$ M_i $においてなくしものが発生する確率$ p_i = \mathrm{P}(\tau < \infty , m_{\tau} = M_i) $は
+なくしもの発生確率$ p_i $は下式で求まる. 
 \begin{equation} \label{eq:p}
 \V{p} = \V{L}(\V{I}-\V{K})^{-1}\V{s}
 \end{equation}
-となる．ただし
+ただし
 \begin{align*}
-\arraycolsep1pt
 \V{p} &= (p_1,p_2,\cdots,p_n)^\mathrm{T} \\
 \V{L} &=
 \begin{pmatrix}
@@ -59,8 +67,31 @@ $ M_i $に対応する利用者の位置分布を$ h_i:X \rightarrow [0,\infty] 
 \\
 \V{s} &= (s_1,s_2,\cdots,s_n)^\mathrm{T}
 \end{align*}
-とおいた．
+とおいた. 
+導出は\ref{sect:proof_p}節にある. 
 
+動作$ m_i $に対応する利用者の位置分布を$ b_i:X \rightarrow [0,\infty) $とし$ \int_X b_i = 1 $を満たすとする. 
+利用者位置分布をなくしもの発生確率で重み付けした和$ \sum_i p_i b_i $を$ h $とおき, なくしもの位置分布と呼ぶ. 
+
+\section{学習}
+$ s_i, a_{i j}, b_i $について, これらはマルコフ連鎖と位置分布の組み合わせであり連続型HMM（Hidden Markov Model）に類似していることに注目する. 
+HMMのパラメータ学習アルゴリズムにBaum-Welchアルゴリズムがある. \cite{ishii_ueda}
+$ b_i $が多変量ガウス分布であるという制約の下, 利用者の位置を監視しBaum-Welchアルゴリズムを適用することで$ s_i, a_{i j}, b_i $を同時に学習する. 
+
+$ \theta_i $の学習にはベイズ推論を用いる．
+なくしものの発見場所を$ \V{x}_{\mathrm{found}} $, $ \V{\theta} = (\theta_1 , \theta_2 , \cdots , \theta_n)^\mathrm{T} $の事前分布の密度関数を$ f $とおく．
+$ \V{\theta} $の分布の更新にあたり尤度としてなくしもの位置分布$ h $を用いる. 
+すなわち事後分布の密度関数$ f(\V{\theta} | x_{\mathrm{found}}) $を下式で定める. 
+\begin{equation} \label{eq:new_f}
+    f(\V{\theta} | \V{x}_{\mathrm{found}}) \propto h(\V{x}_{\mathrm{found}} , \V{\theta}) f(\V{\theta})
+\end{equation}
+ただし$ h $を$ \V{x} \in X $と$ \V{\theta} $の関数とみなしている. 
+
+\section{推定}
+\begin{equation} \label{eq:exp}
+    E_{\V{\theta}} [h] = \int_{0}^{1} \int_{0}^{1} \cdots \int_{0}^{1} h f(\theta) \mathrm{d}\theta_1 \mathrm{d}\theta_2 \cdots \mathrm{d}\theta_n
+\end{equation}
+を推定結果とする. 
 
 ここに書いてある方法を使えば, 秒速で秒速で1億円稼ぐ男になれます. なれません. 
 
