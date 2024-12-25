@@ -179,7 +179,7 @@ $ \V{q}_t = (q_{t 1} , q_{t 2} , \cdots , q_{t n})^\mathrm{T} $とおいて行�
             \times \mathrm{P}(M_1 = m_i | M_0 = m_k) \mathrm{P}(M_0 = m_k)
         \end{array}
     \right) \\
-    & =\sum_{k \ne i} (1 - \theta_i) a_{k i} s_k + a_{i i} s_i
+    & =\sum_{k \ne i} (1 - \theta_i) a_{k i} s_k + a_{i i} s_i \label{eq:q1i}
 \end{align}
 これを$ \V{s} = (s_1 , s_2 , \cdots , s_n)^\mathrm{T} $とおいて行列で書けば
 \begin{equation} \label{eq:init}
@@ -219,10 +219,20 @@ $ \V{q}_t = (q_{t 1} , q_{t 2} , \cdots , q_{t n})^\mathrm{T} $とおいて行�
 \end{equation}
 である. 
 
-\begin{figure}[bt]
-    \centering
-    \includegraphics[keepaspectratio, width=0.7\linewidth]{figs/pq.eps}
-    \caption{A diagram representing the recurrence formula of $ p_{t i} $ and $ q_{t i} $ (\ref{eq:qti_rec}), (\ref{eq:pti_rec})}
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=0.7\linewidth]{figs/pq_0.png}
+        \caption{$p_{t i}$と$q_{t i}$の初項, 式 (\ref{eq:q1i})を表したダイヤグラム}
+        \label{fig:pqt}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=0.7\linewidth]{figs/pq_t.png}
+        \caption{$p_{t i}$と$q_{t i}$の漸化式 (\ref{eq:qti_rec}) , (\ref{eq:pti_rec}) を表したダイヤグラム}
+        \label{fig:pqt}
+    \end{center}
 \end{figure}
 
 次に$ p_i $について, $ \V{p} = (p_1 , p_2 , \cdots , p_n)^\mathrm{T} $とおき(\ref{eq:pt})を(\ref{eq:p_sum_pt})に代入すれば
