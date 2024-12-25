@@ -1,18 +1,40 @@
 \chapter{提案手法}\label{chap:method}
 
 \section{概要}
-経験則をもとになくしものの発生原理をモデル化
-手に持っていたものを置いて次の動作に遷移
-置いたことを忘れる
-例
-郵便受けから新聞紙をとろうと手に持っていたスマートフォンを床に置いたらそのまま忘れた
+経験則としてなくしものは手に持っていたものを置いて次の動作に移るとき, 置いたこと
+を忘れることで発生する.
+例えば郵便受けから新聞紙をとろうと手に持っていたスマートフォンを床に置いたらその
+まま忘れた, といった状況がありうる.
+この経験則を次のようにモデル化する.
+\begin{itemize}
+    \item
+    人はマルコフ連鎖に従い行動する.
+    \item
+    マルコフ連鎖の各状態は寝る, 食べる, 新聞を取るといった動作に対応する.
+    \item
+    なくしものは異なる動作に遷移するときに確率的に発生する.
+\end{itemize}
 
-モデル化
-人は動作をノードとするマルコフ連鎖に従って行動
-異なる動作に遷移する際, 確率的になくしもの発生
-遷移を繰り返せばいつかはなくしものが発生
-どの動作に遷移する際になくしものが発生しやすい？
-各動作でなくしものが発生する確率
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=0.6\linewidth]{figs/model_1.png}
+    \caption{動作を状態とするマルコフ連鎖のイメージ}
+    \label{fig:model1}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=0.8\linewidth]{figs/model_2.png}
+    \caption{なくしもの発生のイメージ}
+    \label{fig:model2}
+    \end{center}
+\end{figure}
+
+このモデルの下では遷移を繰り返すことでいつかはなくしものが発生する.
+そのため動作ごとになくしものが発生したときに遷移先がその動作である確率を計算でき
+る.
+この確率をなくしもの発生確率と呼ぶ.
 
 動作ごとに利用者がいる位置の傾向を表す分布を用意
 なくしもの発生確率を重みとして利用者位置分布を加算
@@ -40,6 +62,31 @@ $ \mathrm{P}(R_t = 0 | M_t = m_j , M_{t - 1} = m_i) $を$ m_i $から$ m_j $へ�
 はじめて$ R_t = 0 $となるときになくしものが発生するとし, そのような$ t $を$ \tau $とおく. 
 すなわち$ \tau $は任意の$ t^{\prime} \in \{1,2,3,\cdots,t-1\} $に対し$ R_{t^{\prime}} = 0 $かつ$ R_t = 1 $を満たす$ t $である. 
 $ \mathrm{P}(\tau < \infty , M_{\tau} = m_i) $を$ p_i $とおき$ m_i $におけるなくしもの発生確率と呼ぶ. 
+各記号の補足として図 (\ref{fig:a}) , (\ref{fig:r}) , (\ref{fig:p}) を載せる. 
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=0.5\linewidth]{figs/tr_prob.png}
+    \caption{遷移確率$a_{i j}$}
+    \label{fig:a}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=0.8\linewidth]{figs/miss_prob.png}
+    \caption{遷移失敗確率, $R_t$が$1$となる確率は前の動作が同じ場合$0$, 異なる場合$\theta_i$}
+    \label{fig:r}
+    \end{center}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=1.0\linewidth]{figs/lost_prob.png}
+    \caption{なくしもの発生確率$p_i$}
+    \label{fig:p}
+    \end{center}
+\end{figure}
 
 なくしもの発生確率$ p_i $は下式で求まる. 
 \begin{equation} \label{eq:p}
